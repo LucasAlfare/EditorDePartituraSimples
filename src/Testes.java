@@ -22,7 +22,7 @@ public class Testes extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 for (Rectangle r : p.rects) {
                     if (r.contains(e.getPoint())) {
-                        System.out.println((r.y / G.DISTANCIA_ENTRE_LINHAS) - 10);
+                        System.out.println((r.y / G.DISTANCIA_ENTRE_LINHAS) - G.ESPACAMENTO_INICIAL_PENTAGRAMA);
 
                         p.currX = r.x;
                         p.currY = r.y;
@@ -66,14 +66,13 @@ public class Testes extends JFrame {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_UP) {
                     p.currY -= G.DISTANCIA_ENTRE_LINHAS;
-
-                    System.out.println(p.currY / G.DISTANCIA_ENTRE_LINHAS - 10);
+                    System.out.println(p.currY / G.DISTANCIA_ENTRE_LINHAS - G.ESPACAMENTO_INICIAL_PENTAGRAMA);
 
                     p.revalidate();
                     p.repaint();
                 } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
                     p.currY += G.DISTANCIA_ENTRE_LINHAS;
-                    System.out.println(p.currY / G.DISTANCIA_ENTRE_LINHAS - 10);
+                    System.out.println(p.currY / G.DISTANCIA_ENTRE_LINHAS - G.ESPACAMENTO_INICIAL_PENTAGRAMA);
 
                     p.revalidate();
                     p.repaint();
@@ -87,7 +86,7 @@ public class Testes extends JFrame {
         });
 
         add(p);
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     public static void main(String[] args) {
