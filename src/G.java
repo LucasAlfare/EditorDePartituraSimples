@@ -1,4 +1,10 @@
+//Classe para guardar campos globais
 public class G {
 
-    public static final int DISTANCIA_ENTRE_LINHAS = 5;
+    //altura
+    public static final int DISTANCIA_ENTRE_LINHAS = 7;
+    public static final int ESPACAMENTO_INICIAL_PENTAGRAMA = DISTANCIA_ENTRE_LINHAS * 2;
+
+    //largura
+    public static final int ESPACAMENTO_HORIZONTAL = 100;
 }

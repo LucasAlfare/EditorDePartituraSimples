@@ -4,7 +4,12 @@ import java.util.ArrayList;
 
 public class Pentagrama extends JComponent {
 
-    public int currX, currY = 10 * G.DISTANCIA_ENTRE_LINHAS;
+    public int currX = 10;
+    public int currY =
+            (G.ESPACAMENTO_INICIAL_PENTAGRAMA * G.DISTANCIA_ENTRE_LINHAS)
+                    +
+                    ((G.ESPACAMENTO_INICIAL_PENTAGRAMA - 2) * G.DISTANCIA_ENTRE_LINHAS);
+
     public ArrayList<Rectangle> rects;
 
     @Override
@@ -16,46 +21,14 @@ public class Pentagrama extends JComponent {
         quadradoMarcador(10, (currY - G.DISTANCIA_ENTRE_LINHAS) - 1, g);
     }
 
-    /*
-
-    .
-    -
-    .
-    -
-    .
-    -
-    .
-    -
-    .
-    ----
-    .
-    ----
-    .
-    ----
-    .
-    ----
-    .
-    ----
-    .
-    -
-    .
-    -
-    .
-    -
-    .
-    -
-    .
-    -
-
-     */
-
     private void retangulosPauta(Graphics g) {
         ArrayList<Rectangle> r = new ArrayList<>();
         int a = G.DISTANCIA_ENTRE_LINHAS;
+        int e = G.ESPACAMENTO_INICIAL_PENTAGRAMA;
+        int h = G.ESPACAMENTO_HORIZONTAL;
         boolean isEspaco = true;
 
-        for (int i = 10 * a; i < (28 + 10) * a; i += a) {
-            //System.out.println(i);
+        for (int i = e * a; i < (28 + e) * a; i += a) {
             if (isEspaco) {
                 Rectangle esp = new Espaco(0, i, 500, a);
 
@@ -72,7 +45,7 @@ public class Pentagrama extends JComponent {
 //                g.fillRect(linha.x, linha.y, linha.width, linha.height);
 
                 //desenha apenas as 5 linhas padrão
-                if ((i / a - 10) >= 8 && (i / a - 10) <= 18) {
+                if ((i / a - e) >= 8 && (i / a - e) <= 18) {
                     //desenha a linha na metade do retangulo
                     g.setColor(new Color(0, 0, 0, 140));
                     g.drawLine(0, (i + (a / 2)), 500, (i + (a / 2)));

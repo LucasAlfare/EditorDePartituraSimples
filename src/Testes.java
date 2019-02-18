@@ -87,7 +87,7 @@ public class Testes extends JFrame {
         });
 
         add(p);
-        //setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     public static void main(String[] args) {
