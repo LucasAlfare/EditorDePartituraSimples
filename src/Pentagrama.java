@@ -34,12 +34,11 @@ import java.util.ArrayList;
 --
 
  */
+@SuppressWarnings("WeakerAccess")
 public class Pentagrama extends JComponent {
 
     public int currX = 10;
-    public int currY =
-            (G.ESPACAMENTO_INICIAL_PENTAGRAMA * G.DISTANCIA_ENTRE_LINHAS)
-                    +
+    public int currY = (G.ESPACAMENTO_INICIAL_PENTAGRAMA * G.DISTANCIA_ENTRE_LINHAS) +
                     ((G.ESPACAMENTO_INICIAL_PENTAGRAMA - 2) * G.DISTANCIA_ENTRE_LINHAS);
 
     int a = G.DISTANCIA_ENTRE_LINHAS;
@@ -71,18 +70,16 @@ public class Pentagrama extends JComponent {
 
         boolean isEspaco = true;
 
-        for (int i = e * a; i < (28 + e) * a; i += a) {
+        //for (int i = e + a; i < (28 + e) * a; i += a) {
+        for (int i = a; i < (28) * a; i += a) {
             if (isEspaco) {
-                Rectangle esp = new Espaco(0, i, 500, a);
-
 //                pintando pra debugar
 //                g.setColor(Color.darkGray);
 //                g.fillRect(espaco.x, espaco.y, espaco.width, espaco.height);
 
-                r.add(esp);
+                r.add(new Espaco(0, i, 500, a));
+                isEspaco = false;
             } else {
-                Rectangle linha = new Linha(0, i, 500, a);
-
 //                pintando pra debugar
 //                g.setColor(Color.lightGray);
 //                g.fillRect(linha.x, linha.y, linha.width, linha.height);
@@ -92,11 +89,11 @@ public class Pentagrama extends JComponent {
                     //desenha a linha na metade do retangulo
                     g.setColor(new Color(0, 0, 0, 140));
                     g.drawLine(0, (i + (a / 2)), 500, (i + (a / 2)));
-                    r.add(linha);
                 }
-            }
 
-            isEspaco = !isEspaco;
+                r.add(new Linha(0, i, 500, a));
+                isEspaco = true;
+            }
         }
 
         rects = r;
@@ -112,22 +109,27 @@ public class Pentagrama extends JComponent {
 
     private void linhasAuxiliares(int x, int y, Graphics g) {
         if (alturaParaUnidade(y) < 8) {
-            System.out.println("-> " + y);
-            for (int i = y; i < unidadeParaAltura(7); i += unidadeParaAltura(7)) {
-                g.setColor(new Color(0, 0, 0, 140));
-                g.drawLine(a, (i + (a / 2)), a * 6, (i + (a / 2)));
+
+            g.setColor(new Color(0, 0, 0, 140));
+            for (int i = y; i <= ((7 * (a + e)) - (a * 4)); i += a) {
+                int currIdx = alturaParaUnidade(i);
+                if (currIdx >= 0) {
+                    if (rects.get(currIdx) instanceof Linha) {
+                        g.drawLine(a, (i + (a / 2)), a * 6, (i + (a / 2)));
+                    }
+                }
             }
         }
     }
 
     class Espaco extends Rectangle {
-        public Espaco(int x, int y, int w, int h) {
+        Espaco(int x, int y, int w, int h) {
             super(x, y, w, h);
         }
     }
 
     class Linha extends Rectangle {
-        public Linha(int x, int y, int w, int h) {
+        Linha(int x, int y, int w, int h) {
             super(x, y, w, h);
         }
     }
