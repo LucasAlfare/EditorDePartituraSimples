@@ -1,3 +1,5 @@
+import java.awt.*;
+
 //Classe para guardar campos globais
 public class G {
 
@@ -7,4 +9,8 @@ public class G {
 
     //campos da largura
     public static final int ESPACAMENTO_HORIZONTAL = 100;
+
+    //CORES
+    public static final Color COR_PADRAO_LINHAS = new Color(0, 0, 0, 140);
+    public static final Color COR_QUADRADO_MARCADOR = new Color(0, 255, 150, 125);
 }

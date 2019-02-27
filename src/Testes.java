@@ -65,17 +65,21 @@ public class Testes extends JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_UP) {
-                    p.currY -= G.DISTANCIA_ENTRE_LINHAS;
-                    System.out.println(p.currY / G.DISTANCIA_ENTRE_LINHAS - G.ESPACAMENTO_INICIAL_PENTAGRAMA);
+                    if (p.currY > 0) {
+                        p.currY -= G.DISTANCIA_ENTRE_LINHAS;
+                        System.out.println(p.currY / G.DISTANCIA_ENTRE_LINHAS);
 
-                    p.revalidate();
-                    p.repaint();
+                        p.revalidate();
+                        p.repaint();
+                    }
                 } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                    p.currY += G.DISTANCIA_ENTRE_LINHAS;
-                    System.out.println(p.currY / G.DISTANCIA_ENTRE_LINHAS - G.ESPACAMENTO_INICIAL_PENTAGRAMA);
+                    if (p.currY <= 28 * G.DISTANCIA_ENTRE_LINHAS) {
+                        p.currY += G.DISTANCIA_ENTRE_LINHAS;
+                        System.out.println(p.currY / G.DISTANCIA_ENTRE_LINHAS);
 
-                    p.revalidate();
-                    p.repaint();
+                        p.revalidate();
+                        p.repaint();
+                    }
                 }
             }
 

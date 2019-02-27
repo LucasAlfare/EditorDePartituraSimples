@@ -2,42 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-/*
-
-.
---
-.
---
-.
---
-.
---
-.    idx=8
-----
-.
-----
-.
-----
-.
-----
-.
-----
-.
---   idx=19
-.
---
-.
---
-.
---
-.
---
-
- */
 @SuppressWarnings("WeakerAccess")
 public class Pauta extends JComponent {
 
-    public ArrayList<Rectangle> rects;
+    public final ArrayList<Rectangle> rects;
 
     int a = G.DISTANCIA_ENTRE_LINHAS;
     int e = G.ESPACAMENTO_INICIAL_PENTAGRAMA;
@@ -54,16 +22,32 @@ public class Pauta extends JComponent {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+        /*
+        translada um pouco para "baixo"
+        a fim de forcener um pequeno
+        espaçamento inicial
+         */
+        g.translate(0, e);
+
+        /*
+        executa os desenhos do pentagrama
+        quadrado marcador e linhas auxiliares
+         */
         pentagrama(g);
         quadradoMarcador(g);
         linhasAux(g);
+
+        /*
+        retorna os graáficos para a posição
+        inicial
+         */
+        g.translate(0, -e);
     }
 
     private void pentagrama(Graphics g) {
-        int f = a + 3;
         boolean isEspaco = true;
         for (int i = 0; i < 28 * a; i += a) {
-            //pintando para debugar
+//            //pintando para debugar
 //            g.setColor(new Color((int) (Math.random() * 0x1000000)));
 //            g.fillRect(0, i, 500, a);
 
@@ -72,7 +56,7 @@ public class Pauta extends JComponent {
                 isEspaco = true;
 
                 if (((i / a) > 8) && ((i / a) < 18)) {
-                    g.setColor(new Color(0, 0, 0, 140));
+                    g.setColor(G.COR_PADRAO_LINHAS);
                     g.drawLine(0, i + (a / 2), 500, i + (a / 2));
                 }
             } else {
@@ -83,7 +67,7 @@ public class Pauta extends JComponent {
     }
 
     private void quadradoMarcador(Graphics g) {
-        g.setColor(new Color(0, 255, 150, 125));
+        g.setColor(G.COR_QUADRADO_MARCADOR);
         g.fillRect(currX, currY - a, a * 3, a * 3);
 
         g.setColor(Color.BLACK);
@@ -92,17 +76,26 @@ public class Pauta extends JComponent {
 
     private void linhasAux(Graphics g) {
         if ((currY / a) <= 7) {
-            g.setColor(new Color(0, 0, 0, 140));
+            g.setColor(G.COR_PADRAO_LINHAS);
             for (int i = currY; i <= 7 * a; i += a) {
-                if (rects.get(i / a) instanceof Linha) {
-                    g.drawLine(
-                            currX - (a / 2),
-                            i + (a / 2),
-                            (currX - (a / 2)) + (a * 4),
-                            i + (a / 2)
-                    );
-                }
+                desenharLinhaPequena(g, i);
             }
+        } else if ((currY / a > 17)) {
+            g.setColor(G.COR_PADRAO_LINHAS);
+            for (int i = currY; i > 17 * a; i -= a) {
+                desenharLinhaPequena(g, i);
+            }
+        }
+    }
+
+    private void desenharLinhaPequena(Graphics g, int i) {
+        if (rects.get(i / a) instanceof Linha) {
+            g.drawLine(
+                    currX - (a / 2),
+                    i + (a / 2),
+                    (currX - (a / 2)) + (a * 4),
+                    i + (a / 2)
+            );
         }
     }
 
