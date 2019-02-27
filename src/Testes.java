@@ -7,14 +7,14 @@ import java.awt.event.MouseListener;
 
 public class Testes extends JFrame {
 
-    private Pentagrama p;
+    private Pauta p;
 
     public Testes() {
         setSize(300, 300);
         setDefaultCloseOperation(3);
         setLocationRelativeTo(null);
 
-        p = new Pentagrama();
+        p = new Pauta();
         p.setFocusable(true);
 
         p.addMouseListener(new MouseListener() {
@@ -22,7 +22,7 @@ public class Testes extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 for (Rectangle r : p.rects) {
                     if (r.contains(e.getPoint())) {
-                        System.out.println((r.y / G.DISTANCIA_ENTRE_LINHAS) - G.ESPACAMENTO_INICIAL_PENTAGRAMA);
+                        System.out.println(p.rects.indexOf(r));
 
                         p.currX = r.x;
                         p.currY = r.y;
