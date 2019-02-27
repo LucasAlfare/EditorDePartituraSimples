@@ -1,3 +1,6 @@
+import org.apache.batik.transcoder.TranscoderException;
+import tentativaelementoinicio.SVGIcon;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -9,7 +12,6 @@ public class Pauta extends JComponent {
 
     int a = G.DISTANCIA_ENTRE_LINHAS;
     int e = G.ESPACAMENTO_INICIAL_PENTAGRAMA;
-    int h = G.ESPACAMENTO_HORIZONTAL;
 
     public int currX = 10;
     public int currY = 15 * a;
@@ -29,6 +31,8 @@ public class Pauta extends JComponent {
          */
         g.translate(0, e);
 
+        elementoInicio(g);
+
         /*
         executa os desenhos do pentagrama
         quadrado marcador e linhas auxiliares
@@ -42,6 +46,14 @@ public class Pauta extends JComponent {
         inicial
          */
         g.translate(0, -e);
+    }
+
+    private void elementoInicio(Graphics g) {
+        try {
+            g.drawImage(new SVGIcon("src/res/clave-de-sol.svg", a * 11, a * 15).bufferedImage, 0, a * 7, null);
+        } catch (TranscoderException e1) {
+            e1.printStackTrace();
+        }
     }
 
     private void pentagrama(Graphics g) {
