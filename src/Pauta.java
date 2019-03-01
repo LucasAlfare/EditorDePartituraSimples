@@ -1,6 +1,3 @@
-import org.apache.batik.transcoder.TranscoderException;
-import tentativaelementoinicio.SVGIcon;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Path2D;
