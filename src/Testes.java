@@ -24,7 +24,7 @@ public class Testes extends JFrame {
                     if (r.contains(e.getPoint())) {
                         System.out.println(p.rects.indexOf(r));
 
-                        p.currX = r.x;
+                        //p.currX = r.x;
                         p.currY = r.y;
 
                         p.revalidate();

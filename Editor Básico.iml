@@ -9,5 +9,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="KotlinJavaRuntime" level="project" />
     <orderEntry type="library" name="batik-all-1.11" level="project" />
+    <orderEntry type="library" name="Relative SVG to Absolute Parser" level="project" />
   </component>
 </module>

@@ -3,6 +3,7 @@ import tentativaelementoinicio.SVGIcon;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Path2D;
 import java.util.ArrayList;
 
 @SuppressWarnings("WeakerAccess")
@@ -13,7 +14,7 @@ public class Pauta extends JComponent {
     int a = G.DISTANCIA_ENTRE_LINHAS;
     int e = G.ESPACAMENTO_INICIAL_PENTAGRAMA;
 
-    public int currX = 10;
+    public int currX = 35;
     public int currY = 15 * a;
 
     public Pauta() {
@@ -21,42 +22,44 @@ public class Pauta extends JComponent {
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
+    protected void paintComponent(Graphics g1) {
+        super.paintComponent(g1);
+        Graphics2D g2 = (Graphics2D)g1;
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
         /*
         translada um pouco para "baixo"
         a fim de forcener um pequeno
         espaçamento inicial
          */
-        g.translate(0, e);
+        g2.translate(0, e);
 
-        elementoInicio(g);
+        elementoInicio(g2);
 
         /*
         executa os desenhos do pentagrama
         quadrado marcador e linhas auxiliares
          */
-        pentagrama(g);
-        quadradoMarcador(g);
-        linhasAux(g);
+        pentagrama(g2);
+        quadradoMarcador(g2);
+        linhasAux(g2);
 
         /*
         retorna os graáficos para a posição
         inicial
          */
-        g.translate(0, -e);
+        g2.translate(0, -e);
     }
 
-    private void elementoInicio(Graphics g) {
-        try {
-            g.drawImage(new SVGIcon("src/res/clave-de-sol.svg", a * 11, a * 15).bufferedImage, 0, a * 7, null);
-        } catch (TranscoderException e1) {
-            e1.printStackTrace();
-        }
+    private void elementoInicio(Graphics2D g) {
+        Path2D painter = new Path2D.Float();
+
+        Figuras.claveDeSol(painter, 0, 20*a, a*0.09f);
+        g.setColor(Color.BLACK);
+        g.fill(painter);
     }
 
-    private void pentagrama(Graphics g) {
+    private void pentagrama(Graphics2D g) {
         boolean isEspaco = true;
         for (int i = 0; i < 28 * a; i += a) {
 //            //pintando para debugar
@@ -78,7 +81,7 @@ public class Pauta extends JComponent {
         }
     }
 
-    private void quadradoMarcador(Graphics g) {
+    private void quadradoMarcador(Graphics2D g) {
         g.setColor(G.COR_QUADRADO_MARCADOR);
         g.fillRect(currX, currY - a, a * 3, a * 3);
 
@@ -86,7 +89,7 @@ public class Pauta extends JComponent {
         g.drawRect(currX, currY - a, a * 3, a * 3);
     }
 
-    private void linhasAux(Graphics g) {
+    private void linhasAux(Graphics2D g) {
         if ((currY / a) <= 7) {
             g.setColor(G.COR_PADRAO_LINHAS);
             for (int i = currY; i <= 7 * a; i += a) {
@@ -100,7 +103,7 @@ public class Pauta extends JComponent {
         }
     }
 
-    private void desenharLinhaPequena(Graphics g, int i) {
+    private void desenharLinhaPequena(Graphics2D g, int i) {
         if (rects.get(i / a) instanceof Linha) {
             g.drawLine(
                     currX - (a / 2),
