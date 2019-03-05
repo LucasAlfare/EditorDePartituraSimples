@@ -62,8 +62,11 @@ public class Pauta extends JComponent {
         g2.setRenderingHint(KEY_TEXT_ANTIALIASING, VALUE_TEXT_ANTIALIAS_ON);
 
         pentagrama(g2);
-        quadradoMarcador(g2);
-        linhasAux(g2);
+
+        elementoInicio(g2);
+
+//        quadradoMarcador(g2);
+//        linhasAux(g2);
     }
 
     private void pentagrama(Graphics2D g) {
@@ -88,12 +91,12 @@ public class Pauta extends JComponent {
         }
     }
 
+    //TODO: corrigir posicionamento vertical da clave
     private void elementoInicio(Graphics2D g) {
-        Path2D painter = new Path2D.Float();
-
-        Figuras.claveDeSol(painter, 0, (a + a / 4) * a, a * 0.09f);
+        Path2D desenhista = new Path2D.Float();
+        Figuras.claveDeSol(desenhista, 0, a * 100, a * 0.05f);
         g.setColor(Color.BLACK);
-        g.fill(painter);
+        g.fill(desenhista);
     }
 
     private void quadradoMarcador(Graphics2D g) {
