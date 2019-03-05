@@ -5,37 +5,6 @@ import java.util.ArrayList;
 
 import static java.awt.RenderingHints.*;
 
-/*
--
-----------
--
-----------
--
-----------
--
-----------
--.........
-----------
--
-----------
--
-----------
--
-----------
--
-----------
--.........
-----------
--
-----------19
--
-----------
--
-----------
--
-----------
- */
-
 @SuppressWarnings("WeakerAccess")
 public class Pauta extends JComponent {
 
@@ -62,11 +31,9 @@ public class Pauta extends JComponent {
         g2.setRenderingHint(KEY_TEXT_ANTIALIASING, VALUE_TEXT_ANTIALIAS_ON);
 
         pentagrama(g2);
-
         elementoInicio(g2);
-
-//        quadradoMarcador(g2);
-//        linhasAux(g2);
+        quadradoMarcador(g2);
+        linhasAux(g2);
     }
 
     private void pentagrama(Graphics2D g) {
