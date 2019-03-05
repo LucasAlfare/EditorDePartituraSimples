@@ -10,7 +10,7 @@ public class Testes extends JFrame {
     private Pauta p;
 
     public Testes() {
-        setSize(300, 300);
+        setSize(300, 500);
         setDefaultCloseOperation(3);
         setLocationRelativeTo(null);
 
@@ -65,7 +65,7 @@ public class Testes extends JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_UP) {
-                    if (p.currY > 0) {
+                    if (p.currY >= G.DISTANCIA_ENTRE_LINHAS + G.ESPACAMENTO_INICIAL_PENTAGRAMA) {
                         p.currY -= G.DISTANCIA_ENTRE_LINHAS;
                         System.out.println(p.currY / G.DISTANCIA_ENTRE_LINHAS);
 
@@ -73,7 +73,7 @@ public class Testes extends JFrame {
                         p.repaint();
                     }
                 } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                    if (p.currY <= 28 * G.DISTANCIA_ENTRE_LINHAS) {
+                    if (p.currY <= (28 * G.DISTANCIA_ENTRE_LINHAS) + G.ESPACAMENTO_INICIAL_PENTAGRAMA) {
                         p.currY += G.DISTANCIA_ENTRE_LINHAS;
                         System.out.println(p.currY / G.DISTANCIA_ENTRE_LINHAS);
 
@@ -95,5 +95,18 @@ public class Testes extends JFrame {
 
     public static void main(String[] args) {
         new Testes().setVisible(true);
+//        int a = 5;
+//        int e = a * 5;
+
+//        for (int i = e; i < (28 * a) + e; i += a) {
+//            System.out.println((i - e) / a);
+//        }
+
+//        int c = 25 * a;
+//        System.out.println((c - e) / a >= 19 ? "preciso desenhar!" : "");
+//
+//        for (int i = c; i >= (19 * a) + e; i -= a) {
+//            System.out.println("-----");
+//        }
     }
 }

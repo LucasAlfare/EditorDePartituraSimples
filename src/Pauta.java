@@ -3,6 +3,39 @@ import java.awt.*;
 import java.awt.geom.Path2D;
 import java.util.ArrayList;
 
+import static java.awt.RenderingHints.*;
+
+/*
+-
+----------
+-
+----------
+-
+----------
+-
+----------
+-.........
+----------
+-
+----------
+-
+----------
+-
+----------
+-
+----------
+-.........
+----------
+-
+----------19
+-
+----------
+-
+----------
+-
+----------
+ */
+
 @SuppressWarnings("WeakerAccess")
 public class Pauta extends JComponent {
 
@@ -21,44 +54,21 @@ public class Pauta extends JComponent {
     @Override
     protected void paintComponent(Graphics g1) {
         super.paintComponent(g1);
-        Graphics2D g2 = (Graphics2D)g1;
-        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        Graphics2D g2 = (Graphics2D) g1;
 
-        /*
-        translada um pouco para "baixo"
-        a fim de forcener um pequeno
-        espaçamento inicial
-         */
-        g2.translate(0, e);
+        g2.setRenderingHint(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON);
+        g2.setRenderingHint(KEY_STROKE_CONTROL, VALUE_STROKE_PURE);
+        g2.setRenderingHint(KEY_INTERPOLATION, VALUE_INTERPOLATION_BILINEAR);
+        g2.setRenderingHint(KEY_TEXT_ANTIALIASING, VALUE_TEXT_ANTIALIAS_ON);
 
-        elementoInicio(g2);
-
-        /*
-        executa os desenhos do pentagrama
-        quadrado marcador e linhas auxiliares
-         */
         pentagrama(g2);
         quadradoMarcador(g2);
         linhasAux(g2);
-
-        /*
-        retorna os graáficos para a posição
-        inicial
-         */
-        g2.translate(0, -e);
-    }
-
-    private void elementoInicio(Graphics2D g) {
-        Path2D painter = new Path2D.Float();
-
-        Figuras.claveDeSol(painter, 0, 20*a, a*0.09f);
-        g.setColor(Color.BLACK);
-        g.fill(painter);
     }
 
     private void pentagrama(Graphics2D g) {
         boolean isEspaco = true;
-        for (int i = 0; i < 28 * a; i += a) {
+        for (int i = e; i < (28 * a) + e; i += a) {
 //            //pintando para debugar
 //            g.setColor(new Color((int) (Math.random() * 0x1000000)));
 //            g.fillRect(0, i, 500, a);
@@ -67,7 +77,7 @@ public class Pauta extends JComponent {
                 rects.add(new Linha(0, i, 500, a));
                 isEspaco = true;
 
-                if (((i / a) > 8) && ((i / a) < 18)) {
+                if (((i - e) / a > 8) && ((i - e) / a < 19)) {
                     g.setColor(G.COR_PADRAO_LINHAS);
                     g.drawLine(0, i + (a / 2), 500, i + (a / 2));
                 }
@@ -76,6 +86,14 @@ public class Pauta extends JComponent {
                 isEspaco = false;
             }
         }
+    }
+
+    private void elementoInicio(Graphics2D g) {
+        Path2D painter = new Path2D.Float();
+
+        Figuras.claveDeSol(painter, 0, (a + a / 4) * a, a * 0.09f);
+        g.setColor(Color.BLACK);
+        g.fill(painter);
     }
 
     private void quadradoMarcador(Graphics2D g) {
@@ -87,21 +105,25 @@ public class Pauta extends JComponent {
     }
 
     private void linhasAux(Graphics2D g) {
-        if ((currY / a) <= 7) {
+        if ((currY - e) / a <= 7) {
             g.setColor(G.COR_PADRAO_LINHAS);
-            for (int i = currY; i <= 7 * a; i += a) {
+            for (int i = currY; i <= (7 * a) + e; i += a) {
                 desenharLinhaPequena(g, i);
             }
-        } else if ((currY / a > 17)) {
+        }
+
+        else
+
+        if ((currY - e) / a >= 19) {
             g.setColor(G.COR_PADRAO_LINHAS);
-            for (int i = currY; i > 17 * a; i -= a) {
+            for (int i = currY; i >= (19 * a) + e; i -= a) {
                 desenharLinhaPequena(g, i);
             }
         }
     }
 
     private void desenharLinhaPequena(Graphics2D g, int i) {
-        if (rects.get(i / a) instanceof Linha) {
+        if (rects.get((i - e) / a) instanceof Linha) {
             g.drawLine(
                     currX - (a / 2),
                     i + (a / 2),
