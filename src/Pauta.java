@@ -58,10 +58,9 @@ public class Pauta extends JComponent {
         }
     }
 
-    //TODO: corrigir posicionamento vertical da clave
     private void elementoInicio(Graphics2D g) {
         Path2D desenhista = new Path2D.Float();
-        Figuras.claveDeSol(desenhista, 0, a * 100, a * 0.05f);
+        Figuras.claveDeSol(desenhista, 0, 325, a * 0.05f);
         g.setColor(Color.BLACK);
         g.fill(desenhista);
     }
