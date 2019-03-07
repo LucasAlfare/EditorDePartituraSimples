@@ -1,0 +1,1 @@
+Biblioteca de conversão de path SVG absoluto para relativo: https://github.com/LucasAlfare/SvgRelativePathConverter
