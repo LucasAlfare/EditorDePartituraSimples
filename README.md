@@ -1,4 +1,4 @@
-#A MOTIVAÇÃO
+# A MOTIVAÇÃO
 
 Esse repositório guarda meu experimento pessoal na criação de um editor de partituras, usando a linguagem Java.
 
